@@ -1,4 +1,10 @@
 package battleship;
 
-public class EmptySea {
+class EmptySea extends Ship{
+
+    @Override
+    String getShipType() {
+        return null;
+    }
+
 }
