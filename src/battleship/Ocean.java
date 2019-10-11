@@ -8,7 +8,7 @@ class Ocean {
     int hitCount;
     int shipsSunk;
 
-    Ocean(){
+    public Ocean(){
        for(int i = 0; i < 10; i++){
            for (int j = 0; j < 10; j++){
                ships[i][j] = new EmptySea();
@@ -53,14 +53,13 @@ class Ocean {
     Ship[][] getShips() {
         return ships;
     }
-
-    //TODO finish method print
+    
     void print(){
         System.out.println("0,0 1 2 3 4 5 6 7 8 9");
         for (int i = 0; i < 10; i++){
-            System.out.print(" " + ++i + " ");
+            System.out.print(" " + i + 1 + " ");
             for (int j = 0; j < 10; j++){
-                    System.out.print('.');
+                    System.out.print(' ' + ships[i][j].toString());
             }
         }
     }
