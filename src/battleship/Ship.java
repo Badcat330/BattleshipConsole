@@ -74,7 +74,7 @@ abstract class Ship {
         if(horizontal){
             for(int i = startIndexI; i < endIndexI; i++){
                 for(int j = startIndexJ; j < length + 1; j++){
-                    if(!(ocean.getShips()[i + row - 1][j + column - 1] instanceof EmptySea))
+                    if(!(ocean.isOccupied(i + row - 1, j + column - 1)))
                         return false;
                 }
             }
@@ -82,7 +82,7 @@ abstract class Ship {
         else{
             for(int i = startIndexI; i < endIndexI; i++){
                 for(int j = startIndexJ; j < length + 1; j++){
-                    if(!(ocean.getShips()[j + row - 1][i + column - 1] instanceof EmptySea))
+                    if(!(ocean.isOccupied(j + row - 1, i + column - 1)))
                         return false;
                 }
             }
@@ -108,6 +108,7 @@ abstract class Ship {
         }
     }
 
+    //TODO Check this func
     boolean shootAt(int row, int column){
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();

@@ -1,6 +1,7 @@
 package battleship;
 
 import java.util.Arrays;
+import java.util.Random;
 
 class Ocean{
     private Ship[][] ships = new Ship[10][10];
@@ -19,7 +20,35 @@ class Ocean{
        shipsSunk = 0;
     }
 
-    //TODO void placeAllShipsRandomly()
+    void placeAllShipsRandomly(){
+        Ship battleship = new Battleship();
+        PutShip(battleship);
+        for(int i = 0; i<2; i++){
+            Ship cruiser = new Cruiser();
+            PutShip(cruiser);
+        }
+        for(int i = 0; i<3; i++){
+            Ship destroyer = new Destroyer();
+            PutShip(destroyer);
+        }
+        for(int i = 0; i<4; i++){
+            Ship submarine = new Submarine();
+            PutShip(submarine);
+        }
+    }
+
+    private void PutShip(Ship ship){
+        Random random = new Random();
+        int row;
+        int column;
+        boolean horizontal;
+        do{
+            row = random.nextInt(10);
+            column = random.nextInt(10);
+            horizontal = random.nextBoolean();
+        }while(!ship.okToPlaceShipAt(row, column, horizontal, this));
+        ship.placeShipAt(row, column, horizontal, this);
+    }
 
     boolean isOccupied(int row, int column){
         return ! (ships[row][column] instanceof EmptySea);
