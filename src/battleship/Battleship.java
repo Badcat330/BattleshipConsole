@@ -3,8 +3,8 @@ package battleship;
 public class Battleship extends Ship{
 
     public Battleship(){
-        lenght = 4;
-        for(int i = 0; i < lenght; i++){
+        length = 4;
+        for(int i = 0; i < length; i++){
             hit[i] = false;
         }
     }

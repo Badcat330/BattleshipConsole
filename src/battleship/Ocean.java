@@ -2,11 +2,11 @@ package battleship;
 
 import java.util.Arrays;
 
-class Ocean {
-    Ship[][] ships = new Ship[10][10];
-    int shotsFired;
-    int hitCount;
-    int shipsSunk;
+class Ocean{
+    private Ship[][] ships = new Ship[10][10];
+    private int shotsFired;
+    private int hitCount;
+    private int shipsSunk;
 
     public Ocean(){
        for(int i = 0; i < 10; i++){

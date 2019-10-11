@@ -3,7 +3,7 @@ package battleship;
 class EmptySea extends Ship{
 
     public EmptySea() {
-        lenght = 1;
+        length = 1;
     }
 
     @Override
