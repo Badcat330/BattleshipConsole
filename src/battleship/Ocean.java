@@ -1,6 +1,5 @@
 package battleship;
 
-import java.util.Arrays;
 import java.util.Random;
 
 class Ocean{
@@ -9,7 +8,7 @@ class Ocean{
     private int hitCount;
     private int shipsSunk;
 
-    public Ocean(){
+    Ocean(){
        for(int i = 0; i < 10; i++){
            for (int j = 0; j < 10; j++){
                ships[i][j] = new EmptySea();

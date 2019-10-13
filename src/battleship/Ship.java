@@ -1,14 +1,13 @@
 package battleship;
 
-import javax.swing.text.Utilities;
 
 abstract class Ship {
     private int bowRow;
     private int bowColumn;
-    protected int length;
+    int length;
     private boolean horizontal;
-    protected boolean[] hit = new boolean[4];
-    int countToStringAscs = 0;
+    boolean[] hit = new boolean[4];
+    private int countToStringAscs = 0;
 
     int getBowRow() {
         return bowRow;
@@ -40,23 +39,22 @@ abstract class Ship {
 
     @Override
     public String toString(){
-//        if(isSunk())
-//            return "x";
-//        if(hit[countToStringAscs]){
-//            countToStringAscs = ++countToStringAscs % 4;
-//            return "s";
-//        }
-//        return ".";
-        return "x";
+        if(isSunk())
+            return "x";
+        if(hit[countToStringAscs]){
+            countToStringAscs = ++countToStringAscs % 4;
+            return "s";
+        }
+        return ".";
     }
 
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean){
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();
-        Integer startI = 0;
-        Integer startJ = 0;
-        Integer endI = 3;
-        Integer endJ = length + 2;
+        int startI = 0;
+        int startJ = 0;
+        int endI = 3;
+        int endJ = length + 2;
 
         if((column + length - 1 > 9 && horizontal) || (row + length - 1 > 9 && !horizontal))
             return false;
@@ -119,7 +117,6 @@ abstract class Ship {
         }
     }
 
-    //TODO Check this func
     boolean shootAt(int row, int column){
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();

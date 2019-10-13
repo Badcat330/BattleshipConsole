@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class BattleshipGame {
 
-    public static String game(){
+    private static String game(){
         Ocean ocean = new Ocean();
         ocean.placeAllShipsRandomly();
         Scanner scanner = new Scanner(System.in);

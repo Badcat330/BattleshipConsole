@@ -1,8 +1,8 @@
 package battleship;
 
-public class Submarine extends Ship {
+class Submarine extends Ship {
 
-    public Submarine() {
+    Submarine() {
         length = 1;
         for(int i = 0; i < length; i++){
             hit[i] = false;

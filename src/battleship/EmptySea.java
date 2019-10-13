@@ -2,7 +2,7 @@ package battleship;
 
 class EmptySea extends Ship{
 
-    public EmptySea() {
+    EmptySea() {
         length = 1;
     }
 
