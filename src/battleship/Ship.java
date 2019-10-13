@@ -46,7 +46,7 @@ abstract class Ship {
             return "s";
         }
         countToStringAscs = (countToStringAscs + 1) % length;
-        return "!";
+        return ".";
     }
 
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean){
