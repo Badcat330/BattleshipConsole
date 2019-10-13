@@ -51,13 +51,20 @@ class Ocean{
     }
 
     boolean isOccupied(int row, int column){
+        if(row < 0 || row > 9 || column < 0 || column > 9)
+            throw new IndexOutOfBoundsException();
         return ! (ships[row][column] instanceof EmptySea);
     }
 
     boolean shootAt(int row, int column){
+        if(row < 0 || row > 9 || column < 0 || column > 9)
+            throw new IndexOutOfBoundsException();
         shotsFired++;
-        if(! (ships[row][column] instanceof EmptySea || ships[row][column].isSunk())){
+        if(! (isOccupied(row, column) || ships[row][column].isSunk())){
             hitCount++;
+            ships[row][column].shootAt(row, column);
+            if(ships[row][column].isSunk())
+                System.out.println("You just sank a " + ships[row][column].getShipType() + ".");
             return true;
         }
         return false;
@@ -85,11 +92,12 @@ class Ocean{
     
     void print(){
         System.out.println("0,0 1 2 3 4 5 6 7 8 9");
-        for (int i = 0; i < 10; i++){
-            System.out.print(" " + i + 1 + " ");
-            for (int j = 0; j < 10; j++){
+        for (int i = 0; i < 9; i++){
+            System.out.print(" " + (i + 1) + " ");
+            for (int j = 0; j < 9; j++){
                     System.out.print(' ' + ships[i][j].toString());
             }
+            System.out.println();
         }
     }
 }

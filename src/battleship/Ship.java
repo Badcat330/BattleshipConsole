@@ -38,21 +38,24 @@ abstract class Ship {
 
     @Override
     public String toString(){
-        if(isSunk())
-            return "x";
-        if(hit[countToStringAscs]){
-            countToStringAscs = ++countToStringAscs % 4;
-            return "s";
-        }
-        return ".";
+//        if(isSunk())
+//            return "x";
+//        if(hit[countToStringAscs]){
+//            countToStringAscs = ++countToStringAscs % 4;
+//            return "s";
+//        }
+//        return ".";
+        return "x";
     }
 
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean){
+        if(row < 0 || row > 9 || column < 0 || column > 9)
+            throw new IndexOutOfBoundsException();
+
         int startIndexI = 0;
         int startIndexJ = 0;
         int endIndexI = 0;
-        if(row < 0 || row > 9 || column < 0 || column > 9)
-            throw new IndexOutOfBoundsException();
+
         if((column + length > 9 && horizontal) || (row + length > 9 && !horizontal))
             return false;
         if(column == 0){
@@ -112,8 +115,11 @@ abstract class Ship {
     boolean shootAt(int row, int column){
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();
-        if(horizontal)
-            return row == bowRow && column >= bowColumn && column <= bowColumn + length - 1 && !hit[row - bowRow];
+        if(horizontal && row == bowRow && column >= bowColumn
+           && column <= bowColumn + length - 1 && !hit[row - bowRow]){
+            hit[row - bowRow] = true;
+            return true;
+        }
         else
             return column == bowColumn && row >= bowRow && row <= bowRow + length - 1 && !hit[column - bowColumn];
     }
