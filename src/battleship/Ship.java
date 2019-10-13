@@ -46,7 +46,7 @@ abstract class Ship {
             return "s";
         }
         countToStringAscs = (countToStringAscs + 1) % length;
-        return ".";
+        return "!";
     }
 
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean){
@@ -126,10 +126,11 @@ abstract class Ship {
             hit[column - bowColumn] = true;
             return true;
         }
-        else{
+        if(column == bowColumn && row >= bowRow && row <= bowRow + length - 1 && !hit[row - bowRow]){
             hit[row - bowRow] = true;
-            return column == bowColumn && row >= bowRow && row <= bowRow + length - 1 && !hit[row - bowRow];
+            return true;
         }
+        return false;
     }
 
     boolean isSunk(){

@@ -61,10 +61,12 @@ class Ocean{
         shotsFired++;
         if(isOccupied(row, column) || !ships[row][column].isSunk()){
             hitCount++;
-            ships[row][column].shootAt(row, column);
-            if(ships[row][column].isSunk())
+            boolean flag = ships[row][column].shootAt(row, column);
+            if(ships[row][column].isSunk()){
                 System.out.println("You just sank a " + ships[row][column].getShipType() + ".");
-            return true;
+                shipsSunk++;
+            }
+            return flag;
         }
         return false;
     }
