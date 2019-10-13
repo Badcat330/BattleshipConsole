@@ -1,5 +1,7 @@
 package battleship;
 
+import javax.swing.text.Utilities;
+
 abstract class Ship {
     private int bowRow;
     private int bowColumn;
@@ -51,45 +53,51 @@ abstract class Ship {
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean){
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();
+        Integer startI = 0;
+        Integer startJ = 0;
+        Integer endI = 3;
+        Integer endJ = length + 2;
 
-        int startIndexI = 0;
-        int startIndexJ = 0;
-        int endIndexI = 0;
-
-        if((column + length > 9 && horizontal) || (row + length > 9 && !horizontal))
+        if((column + length - 1 > 9 && horizontal) || (row + length - 1 > 9 && !horizontal))
             return false;
-        if(column == 0){
-            if(horizontal)
-                startIndexJ++;
-            else
-                startIndexI++;
-        }
-        if(row == 0){
-            if(horizontal)
-                startIndexI++;
-            else
-                startIndexJ++;
-
-        }
-        if(row == 9 || column == 9)
-            endIndexI--;
 
         if(horizontal){
-            for(int i = startIndexI; i < endIndexI; i++){
-                for(int j = startIndexJ; j < length + 1; j++){
-                    if(!(ocean.isOccupied(i + row - 1, j + column - 1)))
-                        return false;
-                }
+            if(row == 9)
+                endI = 2;
+
+            if(row == 0)
+                startI = 1;
+
+            if(column == 0)
+                startJ = 1;
+
+            if(column + length - 1 == 9)
+                endJ --;
+        }
+        else {
+            endJ = 3;
+            endI = length + 2;
+
+            if(column == 9)
+                endJ = 2;
+
+            if(column == 0)
+                startJ = 1;
+
+            if(row == 0)
+                startI = 1;
+
+            if(row + length - 1 == 9)
+                endI--;
+        }
+
+        for(int i = startI; i < endI; i++){
+            for(int j = startJ; j < endJ; j++){
+                if(ocean.isOccupied(i + row - 1, j + column - 1))
+                    return false;
             }
         }
-        else{
-            for(int i = startIndexI; i < endIndexI; i++){
-                for(int j = startIndexJ; j < length + 1; j++){
-                    if(!(ocean.isOccupied(j + row - 1, i + column - 1)))
-                        return false;
-                }
-            }
-        }
+
         return true;
     }
 

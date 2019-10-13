@@ -26,6 +26,7 @@ public class BattleshipGame {
         System.out.println("\nYou are welcome to play Battleship game! \n" +
                 "Write coordinate you want to shoot and sulk all ships\n" +
                 " \t Enjoy the game!\n");
+        while(game().equalsIgnoreCase("exit"));
 
     }
 }
