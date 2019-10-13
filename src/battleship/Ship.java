@@ -42,9 +42,10 @@ abstract class Ship {
         if(isSunk())
             return "x";
         if(hit[countToStringAscs]){
-            countToStringAscs = ++countToStringAscs % 4;
+            countToStringAscs = (countToStringAscs + 1) % length;
             return "s";
         }
+        countToStringAscs = (countToStringAscs + 1) % length;
         return ".";
     }
 
@@ -121,16 +122,18 @@ abstract class Ship {
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();
         if(horizontal && row == bowRow && column >= bowColumn
-           && column <= bowColumn + length - 1 && !hit[row - bowRow]){
-            hit[row - bowRow] = true;
+           && column <= bowColumn + length - 1 && !hit[column - bowColumn]){
+            hit[column - bowColumn] = true;
             return true;
         }
-        else
-            return column == bowColumn && row >= bowRow && row <= bowRow + length - 1 && !hit[column - bowColumn];
+        else{
+            hit[row - bowRow] = true;
+            return column == bowColumn && row >= bowRow && row <= bowRow + length - 1 && !hit[row - bowRow];
+        }
     }
 
     boolean isSunk(){
-        boolean hitFlag = false;
+        boolean hitFlag = true;
         for (int i = 0; i < length; i++){
             hitFlag &= hit[i];
         }

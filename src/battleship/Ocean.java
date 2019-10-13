@@ -59,7 +59,7 @@ class Ocean{
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();
         shotsFired++;
-        if(! (isOccupied(row, column) || ships[row][column].isSunk())){
+        if(isOccupied(row, column) || !ships[row][column].isSunk()){
             hitCount++;
             ships[row][column].shootAt(row, column);
             if(ships[row][column].isSunk())
