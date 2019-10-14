@@ -1,54 +1,99 @@
 package battleship;
 
-
+/**
+ * A {@code Ship} abstract object represent a ship and
+ * implement all methods it need for game
+ */
 abstract class Ship {
+
     private int bowRow;
     private int bowColumn;
     int length;
     private boolean horizontal;
     boolean[] hit = new boolean[4];
-    private int countToStringAscs = 0;
+    private int countToStringRequests = 0;
 
+    /**
+     * Getter
+     * @return Bow Row
+     */
     int getBowRow() {
         return bowRow;
     }
 
+    /**
+     * Setter
+     * @param bowRow number of Row we need to set
+     */
     void setBowRow(int bowRow) {
         this.bowRow = bowRow;
     }
 
+    /**
+     * Getter
+     * @return bow column
+     */
     int getBowColumn() {
         return bowColumn;
     }
 
+    /**
+     * Setter
+     * @param bowColumn number of column we need to set
+     */
     void setBowColumn(int bowColumn) {
         this.bowColumn = bowColumn;
     }
 
+    /**
+     * Getter
+     * @return if ship placed horizontal or not
+     */
     boolean isHorizontal() {
         return horizontal;
     }
 
+    /**
+     * Setter
+     * @param horizontal boolean value we need to put in field horizontal
+     */
     void setHorizontal(boolean horizontal) {
         this.horizontal = horizontal;
     }
 
+    /**
+     * Getter
+     * @return nothing because we will override it in children classes
+     */
     String getShipType(){
         return "";
     }
 
+    /**
+     * Print information about the ship
+     * @return string we should print
+     */
     @Override
     public String toString(){
         if(isSunk())
             return "x";
-        if(hit[countToStringAscs]){
-            countToStringAscs = (countToStringAscs + 1) % length;
+        if(hit[countToStringRequests]){
+            countToStringRequests = (countToStringRequests + 1) % length;
             return "s";
         }
-        countToStringAscs = (countToStringAscs + 1) % length;
+        countToStringRequests = (countToStringRequests + 1) % length;
         return ".";
     }
 
+    /**
+     * Check if it is okay to put it here
+     * @param row number of row
+     * @param column number of column
+     * @param horizontal boolean value for checking if it is horizontal
+     * @param ocean where we check if it okay to put it here
+     * @return boolean value if we can put ship in this cell
+     * @throws IndexOutOfBoundsException
+     */
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean){
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();
@@ -100,6 +145,14 @@ abstract class Ship {
         return true;
     }
 
+    /**
+     * Method put ship where we ask
+     * @param row number of row
+     * @param column number of column
+     * @param horizontal boolean value if ship is placed horizontal
+     * @param ocean where we need to put our ship
+     * @throws IndexOutOfBoundsException
+     */
     void placeShipAt(int row, int column, boolean horizontal, Ocean ocean){
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();
@@ -118,6 +171,13 @@ abstract class Ship {
         }
     }
 
+    /**
+     * Method shoot in cell we asked
+     * @param row number of row
+     * @param column number of column
+     * @return if shoot was successful
+     * @throws IndexOutOfBoundsException
+     */
     boolean shootAt(int row, int column){
         if(row < 0 || row > 9 || column < 0 || column > 9)
             throw new IndexOutOfBoundsException();
@@ -133,6 +193,10 @@ abstract class Ship {
         return false;
     }
 
+    /**
+     * Check if ship is sunk
+     * @return if ship is sunk
+     */
     boolean isSunk(){
         boolean hitFlag = true;
         for (int i = 0; i < length; i++){

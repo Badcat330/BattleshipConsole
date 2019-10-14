@@ -1,18 +1,29 @@
 package battleship;
 
-import java.text.ParseException;
-import java.util.InputMismatchException;
+import org.jetbrains.annotations.Nullable;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
 
+/**
+ * A {@code BattleshipGame} represent a class,
+ * that have main method and do all communication
+ * with user and game start and end
+ */
 public class BattleshipGame {
 
+    /**
+     * Method clean console
+     */
     private  static void cleanConsole(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println();
     }
 
+    /**
+     * Method do communication with user and call initialize classes and
+     * use methods we need for game
+     * @return if we should finish game or not
+     */
     private static boolean game(){
         Ocean ocean = new Ocean();
         ocean.placeAllShipsRandomly();
@@ -51,6 +62,12 @@ public class BattleshipGame {
         return !scanner.next().equalsIgnoreCase("exit");
     }
 
+    /**
+     * Method read number from console
+     * @return null if you will print exit and number if he is able to parse it
+     * @throws NumberFormatException
+     */
+    @Nullable
     private static Integer reading(){
         Integer n = null;
         Scanner scanner = new Scanner(System.in);
@@ -61,6 +78,11 @@ public class BattleshipGame {
         return n;
     }
 
+    /**
+     * Main class has nothing special, only start game and control
+     * when it finishes
+     * @param args
+     */
     public static void main(String[] args){
         cleanConsole();
         System.out.println("\nYou are welcome to play Battleship game! \n" +
